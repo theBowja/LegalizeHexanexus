@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CanvasBoxComponent } from './components/canvas-box/canvas-box.component';
+import { CanvasBoxComponent } from './hexanexus/components/canvas-box/canvas-box.component';
 
 const routes: Routes = [
   { path: '', component: CanvasBoxComponent },
