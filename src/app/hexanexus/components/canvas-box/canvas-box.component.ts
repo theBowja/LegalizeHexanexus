@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
+import { Puzzle } from '../../models/puzzle.class';
+import { UiService } from 'src/app/service/ui.service';
 
 @Component({
   selector: 'app-canvas-box',
@@ -7,10 +9,19 @@ import * as THREE from 'three';
   styleUrls: ['./canvas-box.component.scss']
 })
 export class CanvasBoxComponent implements OnInit {
-  ngOnInit(): void {
-    this.createThreeJsBox();
+
+  constructor(uiService: UiService) {
+    
   }
 
+  ngOnInit(): void {
+
+    this.createThreeJsBox();
+
+  }
+  // Toggle Pause
+  togglePause() {
+  }
 
   createThreeJsBox(): void {
     const canvas = document.getElementById('canvas-box');
@@ -28,13 +39,8 @@ export class CanvasBoxComponent implements OnInit {
       antialias: true
     });
 
-    for (let x = -.5; x <= .5; x++) {
-      for (let y = -.5; y <= .5; y++) {
-        for (let z = -.5; z <= .5; z++) {
-          this.addCube(scene, x, y, z);
-        }
-      }
-    }
+    const puzzle = new Puzzle('S,S,,,,,,S');
+    puzzle.draw(scene);
 
     for (let x = -.5; x <= .5; x++) {
       for (let y = -.5; y <= .5; y++) {

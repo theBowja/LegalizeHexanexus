@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { Plane } from "./plane.enum";
 
 export class Cube {
@@ -35,6 +36,7 @@ export class Cube {
                 } else if (letter === 'R') {
                     this.faces.right = face;
                 }
+                i++;
             }
         }
     }
@@ -90,4 +92,32 @@ export class Cube {
             }
         }
     }
+
+    addCube(scene: THREE.Scene, x: number, y: number, z: number) {
+        const cubegeo = new THREE.BoxGeometry( .75, .75, .75 );
+        cubegeo.translate(x, y, z);
+
+        if (this.isSolid) {
+            const cubefacemat = new THREE.MeshBasicMaterial( { color: 0xcccccc } );
+            const cube = new THREE.Mesh( cubegeo, cubefacemat );
+            scene.add( cube );
+
+            const edgegeo = new THREE.EdgesGeometry( cubegeo );
+            const linemat = new THREE.LineBasicMaterial({ color: 0x000000 });
+            const wires = new THREE.LineSegments(edgegeo, linemat);
+            scene.add(wires);
+
+        } else {
+            const cubefacemat = new THREE.MeshBasicMaterial( { color: 0xcccccc, opacity: 0.5, transparent: true } );
+            const cube = new THREE.Mesh( cubegeo, cubefacemat );
+            scene.add( cube );
+
+            const edgegeo = new THREE.EdgesGeometry( cubegeo );
+            const linemat = new THREE.LineBasicMaterial({ color: 0x999999 });
+            const wires = new THREE.LineSegments(edgegeo, linemat);
+            scene.add(wires);
+        }
+    
+
+      }
 }
